@@ -22,19 +22,12 @@ public class JeuCtrl : MonoBehaviour
 
     [SerializeField] GameObject ecranPartieGagnee;
 
+    //Represente l'ensemble des groupes de drapeaux pour les questions de chaque partie
+    //il est a noter que dans un groupe de drapeaux, il doit y avoir 3 pays de diferrents continents
+    //aussi, je ne veut pas que le meme pays se repete dans la carte deux fois pour des raisons d'apprendtissage
+    
+    [SerializeField] List<GameObject> listeGpDrapeaux;
     [SerializeField] GameObject ecranPartiePerdue;
-
-    [SerializeField] GameObject gpDrapeaux1;//Represente l'ensemble des trois drapeaux pour une question
-    //
-    [SerializeField] GameObject gpDrapeaux2;
-
-    [SerializeField] GameObject gpDrapeaux3;
-
-    [SerializeField] GameObject gpDrapeaux4;
-
-    [SerializeField] GameObject gpDrapeaux5;
-
-    [SerializeField] GameObject gpDrapeaux6;
 
     [SerializeField] AudioClip sonErreur;
 
@@ -86,9 +79,8 @@ public class JeuCtrl : MonoBehaviour
 
     private IEnumerator DebuterPartieCoroutine()
     {
-        
         //TODO initialiser le compteur de temps
-        //pour chaque question, on affiche le set de drapeaux et l'image du continent
+        
         partieEnCours=true;
         panelMsgDebutPartie.SetActive(true);
         yield return new WaitForSeconds(8f);
@@ -96,10 +88,10 @@ public class JeuCtrl : MonoBehaviour
 
         txtTmpRestant.text=secondesPartie.ToString();
         StartCoroutine("DecrementTimer");
-        //on montre la premier flagSet avec son continent corespondant qui est celui de l'afrique
-        
+
+        //on montre la premier groupe de drapeeaux avec son continent
         imgAfrique.SetActive(true);
-        gpDrapeaux1.SetActive(true);
+        listeGpDrapeaux[0].SetActive(true);
 
         nbBonneRep = 0;
     }
@@ -119,6 +111,7 @@ public class JeuCtrl : MonoBehaviour
     }
 
 
+    //pour chaque question, on affiche le set de drapeaux et l'image du continent
     public IEnumerator BonneRepCoroutine()
     {
         if(partieEnCours){
@@ -130,57 +123,57 @@ public class JeuCtrl : MonoBehaviour
         {
             case 1:
                 imgAfrique.SetActive(false); //desactive l'image du continent courrant
-                gpDrapeaux1.SetActive(false); //deasactive le groupe de drapeaux de la question courrant
+                listeGpDrapeaux[0].SetActive(false); //deasactive le groupe de drapeaux de la question courrant
                 panelMsgBonneRep.SetActive(true); //active le msg de bonne reponse
                 yield return new WaitForSeconds(6f); //attends 6 seconde
                 panelMsgBonneRep.SetActive(false); //desactive le msg de bonne rep
                 imgAsie.SetActive(true); //active l'image du nouveau continant
-                gpDrapeaux2.SetActive(true); //active le groupe de drapeaux de la nouvelle question
+                listeGpDrapeaux[1].SetActive(true); //active le groupe de drapeaux de la nouvelle question
                 break;
 
             case 2: 
                 imgAsie.SetActive(false); //desactive l'image du continent courrant
-                gpDrapeaux2.SetActive(false); //deasactive le groupe de drapeaux de la question courrant
+                listeGpDrapeaux[1].SetActive(false); //deasactive le groupe de drapeaux de la question courrant
                 panelMsgBonneRep.SetActive(true);
                 yield return new WaitForSeconds(6f);
                 panelMsgBonneRep.SetActive(false);
                 imgAmeriqueN.SetActive(true); //active l'image du nouveau continant
-                gpDrapeaux3.SetActive(true); //active le groupe de drapeaux de la nouvelle question
+                listeGpDrapeaux[2].SetActive(true); //active le groupe de drapeaux de la nouvelle question
                 break;
 
              case 3: 
                 imgAmeriqueN.SetActive(false); //desactive l'image du continent courrant
-                gpDrapeaux3.SetActive(false); //deasactive le groupe de drapeaux de la question courrant
+                listeGpDrapeaux[2].SetActive(false); //deasactive le groupe de drapeaux de la question courrant
                 panelMsgBonneRep.SetActive(true);
                 yield return new WaitForSeconds(6f);
                 panelMsgBonneRep.SetActive(false);
                 imgOceanie.SetActive(true); //active l'image du nouveau continant
-                gpDrapeaux4.SetActive(true); //active le groupe de drapeaux de la nouvelle question
+                listeGpDrapeaux[3].SetActive(true); //active le groupe de drapeaux de la nouvelle question
                 break;
 
             case 4: 
                 imgOceanie.SetActive(false); //desactive l'image du continent courrant
-                gpDrapeaux4.SetActive(false); //deasactive le groupe de drapeaux de la question courrant
+                listeGpDrapeaux[3].SetActive(false); //deasactive le groupe de drapeaux de la question courrant
                 panelMsgBonneRep.SetActive(true);
                 yield return new WaitForSeconds(6f);
                 panelMsgBonneRep.SetActive(false);
                 imgAmeriqueS.SetActive(true); //active l'image du nouveau continant
-                gpDrapeaux5.SetActive(true); //active le groupe de drapeaux de la nouvelle question
+                listeGpDrapeaux[4].SetActive(true); //active le groupe de drapeaux de la nouvelle question
                 break;
 
             case 5: 
                 imgAmeriqueS.SetActive(false); //desactive l'image du continent courrant
-                gpDrapeaux5.SetActive(false); //deasactive le groupe de drapeaux de la question courrant
+                listeGpDrapeaux[4].SetActive(false); //deasactive le groupe de drapeaux de la question courrant
                 panelMsgBonneRep.SetActive(true);
                 yield return new WaitForSeconds(6f);
                 panelMsgBonneRep.SetActive(false);
                 imgEurope.SetActive(true); //active l'image du nouveau continant
-                gpDrapeaux6.SetActive(true); //active le groupe de drapeaux de la nouvelle question
+                listeGpDrapeaux[5].SetActive(true); //active le groupe de drapeaux de la nouvelle question
                 break;
 
             case 6: 
                 imgEurope.SetActive(false); //desactive l'image du continent courrant
-                gpDrapeaux6.SetActive(false); //deasactive le groupe de drapeaux de la question courrant
+                listeGpDrapeaux[5].SetActive(false); //deasactive le groupe de drapeaux de la question courrant
                 GagnerPartie();
                 break;
         }
@@ -190,6 +183,7 @@ public class JeuCtrl : MonoBehaviour
 
 //pour l'insatant, une seule mauvaise reponse suffit pour perdre la partie
 //donc pour l'insatant cette methode ne sert pas a grand chose.
+//possibilit de tolerer plusieurs mauvaises réponses
     public void MauvaiseRep()
     {
         if(partieEnCours){
