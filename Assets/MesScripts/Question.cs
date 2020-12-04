@@ -20,22 +20,10 @@ public class Question
         PaysQst.Add(pays3);
         
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     //aide a verifier si le joueur a choisi le pays correspondant a celui de la question
     public bool checkBonneReponse(Pays paysChoisi){
-        return Continant==paysChoisi.NomContinant ? true:false;
+        return Continant==paysChoisi.NomContinant;
     }
-
 
 }

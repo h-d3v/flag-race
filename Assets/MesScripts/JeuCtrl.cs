@@ -65,7 +65,8 @@ public class JeuCtrl : MonoBehaviour
     {
         audioSource=this.GetComponent<AudioSource>();
         //initialise tous les GameObject fesant partie du ui
-        txtTmpRestant= hud.transform.Find("PanelTimer").Find("TxtTempsRestant").GetComponent<Text>();
+        //si je fait GameObject.Find("nom de l'objet, ca me fait un Object not found exception")
+        txtTmpRestant= GameObject.Find("TxtTempsRestant").GetComponent<Text>();
         panelMsgDebutPartie = hud.transform.Find("PanelMsgDebutPartie").gameObject;
         panelMsgBonneRep = hud.transform.Find("PanelMsgBonneRep").gameObject;
         imgAfrique=hud.transform.Find("ImgAfrique").gameObject;
@@ -201,7 +202,4 @@ public class JeuCtrl : MonoBehaviour
             txtTmpRestant.text=Math.Round(secondesPartie, 1).ToString();
         }
     }
-
-
-
 }

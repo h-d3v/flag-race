@@ -21,6 +21,7 @@ public class WheelClassFree {
 	public float skidMarkShift = 0.0f;
 	[Tooltip("If this variable is true, the wheel associated with this index will receive rotation defined by the flywheel.")]
 	public bool wheelTurn = false;
+
 	//
 	[HideInInspector] public Vector3 wheelWorldPosition;
 	[HideInInspector] public Mesh rendSKDmarks;
