@@ -18,6 +18,8 @@ public class JeuCtrl : MonoBehaviour
     private GameObject panelMsgDebutPartie, panelMsgBonneRep;
     private AudioSource audioSource;
     private Text txtTmpRestant;
+
+    private Text txtNbQstRestantes;
     [SerializeField] GameObject hud; //Canvas qui va permettre d'afficher des infos importantes au joueur.
 
     [SerializeField] GameObject ecranPartieGagnee;
@@ -49,12 +51,15 @@ public class JeuCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         //verifie si le compteur atteint sa fin
         if(secondesPartie<=0)
         {
             GameOver();
             txtTmpRestant.text="0";
         }
+
+         txtNbQstRestantes.text=(listeGpDrapeaux.Count-nbBonneRep-nbMauvaiseRep).ToString();
 
     }
 
@@ -66,6 +71,8 @@ public class JeuCtrl : MonoBehaviour
         audioSource=this.GetComponent<AudioSource>();
         //initialise tous les GameObject fesant partie du ui
         //si je fait GameObject.Find("nom de l'objet, ca me fait un Object not found exception")
+        //appart pour les champs de text
+        txtNbQstRestantes=GameObject.Find("TxtQstRestante").GetComponent<Text>();
         txtTmpRestant= GameObject.Find("TxtTempsRestant").GetComponent<Text>();
         panelMsgDebutPartie = hud.transform.Find("PanelMsgDebutPartie").gameObject;
         panelMsgBonneRep = hud.transform.Find("PanelMsgBonneRep").gameObject;
